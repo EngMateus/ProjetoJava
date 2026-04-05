@@ -1,0 +1,46 @@
+### Java / Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+### Python (Essencial para a sua Orquestração) ###
+# Ignora o ambiente virtual para não subir milhares de ficheiros
+venv/
+.venv/
+env/
+bin/
+lib/
+include/
+pyvenv.cfg
+
+# Ignora ficheiros de cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Ignora ficheiros de dados temporários (fotos de peixe que escaparam à limpeza)
+fish_*.jpg
+*.log
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+### Sistema Operacional ###
+.DS_Store
+Thumbs.db
+
+
+###
+ambienteVirtual

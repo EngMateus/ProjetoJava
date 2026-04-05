@@ -19,23 +19,29 @@ public class FishAnalyzerController {
         this.orchestratorService = orchestratorService;
     }
 
-    // A adição do 'consumes' força o Swagger a mostrar o botão de upload de arquivo
     @PostMapping(value = "/classify-python", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> classificar(@RequestPart("imagem") MultipartFile file) {
+        Path tempFile = null; // Declarado fora para ser acessível no finally
         try {
-            // Salva a imagem recebida em um arquivo temporário no Sistema Operacional
-            Path tempFile = Files.createTempFile("fish_", ".jpg");
+            // Importância do createTempFile: Unicidade e uso do diretório /tmp do SO
+            tempFile = Files.createTempFile("fish_", ".jpg");
             file.transferTo(tempFile.toFile());
 
-            // O Java atua como Orquestrador enviando o caminho para o Python
+            // Chamar o script Python com a imagem (O Java como Orquestrador)
             String resultado = orchestratorService.analyzeWithPython(tempFile.toAbsolutePath().toString());
-
-            // Remove o arquivo temporário (Meio de Campo) após a resposta do Python
-            Files.deleteIfExists(tempFile);
 
             return ResponseEntity.ok(resultado);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body("Erro no processamento: " + e.getMessage());
+        } finally {
+            // REGRA DE OURO: O uso do finally garante a exclusão mesmo em caso de erro
+            if (tempFile != null) {
+                try {
+                    Files.deleteIfExists(tempFile);
+                } catch (Exception ignored) {
+                    // Apenas para evitar que erros na limpeza travem a resposta
+                }
+            }
         }
     }
 }

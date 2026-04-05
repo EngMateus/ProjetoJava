@@ -1,4 +1,4 @@
-package br.edu.faculdadedonaduzzi.dataservice.service; // Verifique esta linha!
+package br.edu.faculdadedonaduzzi.dataservice.service;
 
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
@@ -9,9 +9,10 @@ public class FishOrchestratorService {
 
     public String analyzeWithPython(String imagePath) {
         try {
-            // Ajuste para o seu ambiente virtual 'ambienteVirtual'
+            // No Docker, usamos o comando nativo do Linux instalado no Dockerfile
+            // O caminho do script permanece relativo à raiz do container (/app)
             ProcessBuilder pb = new ProcessBuilder(
-                    "ambienteVirtual/Scripts/python.exe",
+                    "python3.13",
                     "dataservice/predict.py",
                     imagePath
             );

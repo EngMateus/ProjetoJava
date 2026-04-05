@@ -41,12 +41,17 @@ if __name__ == "__main__":
         # 1. Extração de características da imagem enviada pelo Swagger
         features = extract_lbp_features(image_path)
 
-        # 2. Carregamento do Modelo de Elite
-        # Ajustado: Usando o caminho absoluto direto para evitar conflitos de diretório de trabalho do Java
-        model_path = r'C:\Users\Mateus\Desktop\ProjetoJava\fish_cv_model3.pkl'
+        # 2. Carregamento do Modelo (DINÂMICO PARA DOCKER/LINUX)
+        # Primeiro, tenta encontrar na mesma pasta que este script
+        base_path = os.path.dirname(os.path.abspath(__file__))
+        model_path = os.path.join(base_path, "fish_cv_model3.pkl")
+
+        # Caso não encontre (dependendo de como o Docker mapeou), tenta o caminho raiz do app
+        if not os.path.exists(model_path):
+            model_path = "/app/dataservice/fish_cv_model3.pkl"
 
         if not os.path.exists(model_path):
-            raise FileNotFoundError(f"Modelo não encontrado em: {model_path}")
+            raise FileNotFoundError(f"Arquivo de modelo .pkl não encontrado no container em: {model_path}")
 
         model = joblib.load(model_path)
 

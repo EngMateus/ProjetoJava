@@ -10,9 +10,13 @@ spring:
     virtual:
       enabled: true
 
-
 app:
   model:
-    default-threshold: 0.75         # O Spring mapeia para defaultThreshold
-    version: "v4.2.0-beta"          # O Spring mapeia para version
-    path: "/mnt/models/fraud.onnx"  # O Spring mapeia para path
+    default-threshold: 0.75
+    version: "v4.2.0-beta"
+    path: "/mnt/models/fraud.onnx"
+
+# ADICIONE ESTE BLOCO ABAIXO:
+cleaning:
+  agent-name: "Elite-Cleaner-v1"
+  strategy: "Deep-Data-Scrubbing"

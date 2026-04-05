@@ -6,6 +6,11 @@ server:
 spring:
   application:
     name: dataservice
+  # Adicione este bloco para permitir arquivos maiores
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
   threads:
     virtual:
       enabled: true
@@ -16,7 +21,6 @@ app:
     version: "v4.2.0-beta"
     path: "/mnt/models/fraud.onnx"
 
-# ADICIONE ESTE BLOCO ABAIXO:
 cleaning:
   agent-name: "Elite-Cleaner-v1"
   strategy: "Deep-Data-Scrubbing"

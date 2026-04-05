@@ -1,12 +1,14 @@
 package br.edu.faculdadedonaduzzi.dataservice;
 
-import br.edu.faculdadedonaduzzi.dataservice.config.ModelConfiguration; // Import do seu Record
+import br.edu.faculdadedonaduzzi.dataservice.config.CleaningConfig; // Importe o novo Record
+import br.edu.faculdadedonaduzzi.dataservice.config.ModelConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties; // Import da ativação
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(ModelConfiguration.class) // <-- O COMANDO DE ATIVAÇÃO AQUI
+// Adicione o CleaningConfig.class dentro das chaves { } para ativar ambos
+@EnableConfigurationProperties({ModelConfiguration.class, CleaningConfig.class})
 public class DataserviceApplication {
 
 	public static void main(String[] args) {
